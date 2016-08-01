@@ -1,6 +1,6 @@
 [user]
-	name = jamesdmorgan
-	email = jamesdmorgan@gmail.com
+  name = jamesdmorgan
+  email = jamesdmorgan@gmail.com
 [core]
   editor = vim
   excludesfile = ~/.gitignore
@@ -20,12 +20,12 @@
 [difftool]
   prompt = false
 [alias]
-    ci  = commit -a
-    co  = checkout
-    st  = status
-    cat = !cat @
-    ds  = diff --stat
-    d   = diff --color-words
-    l   = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
-    ll  = log --stat --abbrev-commit
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ci  = commit -a
+  co  = checkout
+  st  = status
+  cat = !cat @
+  ds  = diff --stat
+  d   = diff --color-words
+  l   = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  ll  = log --stat --abbrev-commit
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
