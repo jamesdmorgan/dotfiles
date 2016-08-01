@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias l='ls $LS_OPTIONS -l'
+alias h=history
+alias f="find . -type f -follow -print0 |xargs -0 grep -n --color"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Git aliases.
+alias gs='git status'
+alias gc='git commit'
+alias gp='git pull --rebase'
+alias gd="git diff"
+alias gcam='git commit -am'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gsd='git svn dcommit'
+alias gsfr='git svn fetch && git svn rebase'
+
+# Ansible aliases.
+alias an='ansible'
+alias ap='ansible-playbook'
+
+# Flush DNS cache (See: http://support.apple.com/kb/ht5343).
+alias flush-dns='sudo killall -HUP mDNSResponder'

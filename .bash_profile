@@ -4,6 +4,11 @@
 # @see .inputrc
 #
 
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+    [ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
 # Use colors.
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
@@ -11,20 +16,39 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 # Custom $PATH with extra locations.
 export PATH=/usr/local/bin:/Users/jamesdmorgan/bin:/usr/local/sbin:/usr/local/git/bin:$PATH
 
-# Flush DNS cache (See: http://support.apple.com/kb/ht5343).
-alias flush-dns='sudo killall -HUP mDNSResponder'
-
-# Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.bash_aliases ]
-then
-  source ~/.bash_aliases
-fi
-
 # Include bashrc file (if present).
 if [ -f ~/.bashrc ]
 then
   source ~/.bashrc
 fi
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend;
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+    shopt -s "$option" 2> /dev/null;
+done;
+
+# Add tab completion for many Bash commands
+if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+    source "$(brew --prefix)/share/bash-completion/bash_completion";
+elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion;
+fi;
+
+# Enable tab completion for `g` by marking it as an alias for `git`
+if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    complete -o default -o nospace -F _git g;
+fi;
 
 # Syntax-highlight code for copying and pasting.
 # Requires highlight (`brew install highlight`).
@@ -32,30 +56,11 @@ function pretty() {
   pbpaste | highlight --syntax=$1 -O rtf | pbcopy
 }
 
-# Git aliases.
-alias gs='git status'
-alias gc='git commit'
-alias gp='git pull --rebase'
-alias gd="git diff"
-alias gcam='git commit -am'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-alias gsd='git svn dcommit'
-alias gsfr='git svn fetch && git svn rebase'
-
-# Turn on Git autocomplete.
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
-fi
-
 # Vagrant configuration.
 # export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 
 # Disable cowsay in Ansible.
 export ANSIBLE_NOCOWS=1
-
-# Ansible aliases.
-alias an='ansible'
-alias ap='ansible-playbook'
 
 # Delete a given line number in the known_hosts file.
 knownrm() {
