@@ -6,7 +6,8 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias l='ls $LS_OPTIONS -l'
+alias l='ls -l'
+alias ll='ls -al'
 alias h=history
 alias f="find . -type f -follow -print0 |xargs -0 grep -n --color"
 
