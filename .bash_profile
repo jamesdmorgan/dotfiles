@@ -4,9 +4,6 @@
 # @see .inputrc
 #
 
-# Nicer prompt.
-#export PS1=" \D{%I:%M %p}:\w $ "
-
 # Use colors.
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
@@ -39,6 +36,7 @@ function pretty() {
 alias gs='git status'
 alias gc='git commit'
 alias gp='git pull --rebase'
+alias gd="git diff"
 alias gcam='git commit -am'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gsd='git svn dcommit'
@@ -48,9 +46,6 @@ alias gsfr='git svn fetch && git svn rebase'
 if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
-
-# Use brew-installed PHP binaries.
-export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 
 # Vagrant configuration.
 # export VAGRANT_DEFAULT_PROVIDER='virtualbox'

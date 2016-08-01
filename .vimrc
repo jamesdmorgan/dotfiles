@@ -1,56 +1,53 @@
-syntax on               " enable syntax highlighting
-syntax enable
-set cursorline          " highlight the current line
-" set ruler             " show line number in bar
-set nobackup            " don't create pointless backup files; Use VCS instead
-set autoread            " watch for file changes
-set number              " show line numbers
-set showcmd             " show selection metadata
-set showmode            " show INSERT, VISUAL, etc. mode
-set showmatch           " show matching brackets
-set autoindent smartindent  " auto/smart indent
-set smarttab            " better backspace and tab functionality
-set scrolloff=5         " show at least 5 lines above/below
-filetype on             " enable filetype detection
-filetype indent on      " enable filetype-specific indenting
-filetype plugin on      " enable filetype-specific plugins
+syntax on
+execute pathogen#infect()
+colorscheme srcery
+set ruler
+set statusline=%<%f\ %=\:\b%n%y%m%r%w\ %l,%c%V\ %P
+set title
+highlight ColorColumn ctermbg=gray
+set colorcolumn=80
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
 
-" column-width visual indication
-let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=235 guibg=#001D2F
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
+:match ExtraWhitespace /\s\+$\| \+\ze\t/
 
-" tabs and indenting
-set autoindent          " auto indenting
-set smartindent         " smart indenting
-set expandtab           " spaces instead of tabs
-set tabstop=2           " 2 spaces for tabs
-set shiftwidth=2        " 2 spaces for indentation
 
-" bells
-set noerrorbells        " turn off audio bell
-set visualbell          " but leave on a visual bell
+set tabstop=4       " The width of a TAB is set to 4.
+                    " Still it is a \t. It is just that
+                    " Vim will interpret it to be having
+                    " a width of 4.
 
-" search
-set hlsearch            " highlighted search results
-set showmatch           " show matching bracket
+set shiftwidth=4    " Indents will have a width of 4
 
-" other
-set guioptions=aAace    " don't show scrollbar in MacVim
-call pathogen#infect()  " use pathogen
+set softtabstop=4   " Sets the number of columns for a TAB
 
-" Solarized stuff
-let g:solarized_termtrans = 1
-set background=dark
-colorscheme solarized
+set expandtab       " Expand TABs to spaces
 
-" clipboard
-set clipboard=unnamed   " allow yy, etc. to interact with OS X clipboard
+" Only do this part when compiled with support for autocommands
+if has("autocmd")
+  " Enable file type detection
+  filetype on
 
-" shortcuts
-map <F2> :NERDTreeToggle<CR>
+  " Syntax of these languages is fussy over tabs Vs spaces
+  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType cfg set ts=4 sw=4 expandtab
+  autocmd FileType xml set ts=4 sw=4 expandtab
 
-" remapped keys
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
+  " Customisations based on house-style (arbitrary)
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+
+  " Treat .rss files as XML
+  autocmd BufNewFile,BufRead *.rss setfiletype xml
+endif
+
+" NerdTree
+map <C-n> :NERDTreeToggle<CR>
+
