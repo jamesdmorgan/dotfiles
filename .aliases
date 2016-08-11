@@ -33,6 +33,7 @@ alias gsfr='git svn fetch && git svn rebase'
 # Ansible aliases.
 alias an='ansible'
 alias ap='ansible-playbook'
+alias ansible-vagrant='PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ANSIBLE_HOST_KEY_CHECKING=false ANSIBLE_SSH_ARGS='\''-o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o ControlMaster=auto -o ControlPersist=60s'\'' ansible-playbook --connection=ssh --timeout=30 --inventory-file=.vagrant/provisioners/ansible/inventory'
 
 # Flush DNS cache (See: http://support.apple.com/kb/ht5343).
 alias flush-dns='sudo killall -HUP mDNSResponder'
